@@ -1,0 +1,829 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="huakai">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="程序基本组成  引入three基础方法，引入three.js文件 123&lt;head&gt;   &lt;script src&#x3D;&quot;.&#x2F;three.js-master&#x2F;build&#x2F;three.js&quot;&gt;&lt;&#x2F;script&gt; &lt;&#x2F;head&gt;    模块化引入，引入three.module.js文件 123&lt;script type&#x3D;&quot;mo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThreeJS">
+<meta property="og:url" content="http://example.com/2022/11/05/ThreeJS/index.html">
+<meta property="og:site_name" content="huakai的博客网站">
+<meta property="og:description" content="程序基本组成  引入three基础方法，引入three.js文件 123&lt;head&gt;   &lt;script src&#x3D;&quot;.&#x2F;three.js-master&#x2F;build&#x2F;three.js&quot;&gt;&lt;&#x2F;script&gt; &lt;&#x2F;head&gt;    模块化引入，引入three.module.js文件 123&lt;script type&#x3D;&quot;mo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/4.webp">
+<meta property="article:published_time" content="2022-11-05T04:17:21.000Z">
+<meta property="article:modified_time" content="2022-11-05T04:25:59.907Z">
+<meta property="article:author" content="huakai">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="three.js">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/4.webp">
+  
+  
+  
+  <title>ThreeJS - huakai的博客网站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>huakai&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ThreeJS"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-05 12:17" pubdate>
+          2022年11月5日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ThreeJS</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>程序基本组成</p>
+<p><img src="https://huaka1-tuchuang.oss-cn-hangzhou.aliyuncs.com/202209112016903.png" srcset="/img/loading.gif" lazyload alt="image-20220911201614702"></p>
+<h1 id="引入three"><a href="#引入three" class="headerlink" title="引入three"></a>引入three</h1><p>基础方法，引入three.js文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./three.js-master/build/three.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span> <br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>模块化引入，引入three.module.js文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-variable constant_">THREE</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./three.js-master/build/three.module.js&quot;</span></span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>工程化引入：</p>
+<p>创建一个vue项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm init vite-app 包名<br></code></pre></td></tr></table></figure>
+
+
+
+<p>下载threejs</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install three@0.133.0 --save<br></code></pre></td></tr></table></figure>
+
+
+
+<p>创建一个js，导包</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-variable constant_">THREE</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;three&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">OrbitControls</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;three/examples/jsm/controls/OrbitControls.js&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>将renderer导出给外部</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> &#123;renderer&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>在一个vue中导入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> renderer <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;PATH&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="场景Scene"><a href="#场景Scene" class="headerlink" title="场景Scene"></a>场景Scene</h1><h2 id="网络模型Mesh"><a href="#网络模型Mesh" class="headerlink" title="网络模型Mesh"></a>网络模型Mesh</h2><h3 id="几何体Geometry"><a href="#几何体Geometry" class="headerlink" title="几何体Geometry"></a>几何体Geometry</h3><p>长方体：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> geometry = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">BoxGeometry</span>(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="材质Material"><a href="#材质Material" class="headerlink" title="材质Material"></a>材质Material</h3><p>材质分类：</p>
+<p><img src="https://huaka1-tuchuang.oss-cn-hangzhou.aliyuncs.com/202209121206732.png" srcset="/img/loading.gif" lazyload alt="image-20220912120654838"></p>
+<p>材质常见属性：</p>
+<p><img src="https://huaka1-tuchuang.oss-cn-hangzhou.aliyuncs.com/202209121208617.png" srcset="/img/loading.gif" lazyload alt="image-20220912120837521"></p>
+<p>半透明效果：</p>
+<p>更改场景中的球体材质对象构造函数<a target="_blank" rel="noopener" href="http://www.yanhuangxueyuan.com/threejs/docs/index.html#api/zh/materials/MeshLambertMaterial">THREE.MeshLambertMaterial()</a>的参数，添加<code>opacity</code>和<code>transparent</code>属性，<code>opacity</code>的值是<code>0~1</code>之间，<code>transparent</code>表示是否开启透明度效果， 默认是<code>false</code>表示透明度设置不起作用，值设置为<code>true</code>，网格模型就会呈现透明的效果，使用下面的代码替换原来的球体网格模型的材质， 刷新浏览器,通过鼠标旋转操作场景,可以看到半透明的球体和立方体颜色叠加融合的效果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> sphereMaterial=<span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">MeshLambertMaterial</span>(&#123;<br>    <span class="hljs-attr">color</span>:<span class="hljs-number">0xff0000</span>,<br>    <span class="hljs-attr">opacity</span>:<span class="hljs-number">0.7</span>,<br>    <span class="hljs-attr">transparent</span>:<span class="hljs-literal">true</span><br>&#125;);<span class="hljs-comment">//材质对象</span><br></code></pre></td></tr></table></figure>
+
+<p>材质对象的一些属性可以在构造函数参数中设置，也可以访问材质对象的属性设置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">material.<span class="hljs-property">opacity</span> = <span class="hljs-number">0.5</span> ;<br>material.<span class="hljs-property">transparent</span> = <span class="hljs-literal">true</span> ;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>添加高光效果：</p>
+<p>直接使用下面的代码替换上面的透明度材质即可，刷新浏览器可以看到球体表面的高光效果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> sphereMaterial=<span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">MeshPhongMaterial</span>(&#123;<br>    <span class="hljs-attr">color</span>:<span class="hljs-number">0x0000ff</span>,<br>    <span class="hljs-attr">specular</span>:<span class="hljs-number">0x4488ee</span>,<br>    <span class="hljs-attr">shininess</span>:<span class="hljs-number">12</span><br>&#125;);<span class="hljs-comment">//材质对象</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="光源Light"><a href="#光源Light" class="headerlink" title="光源Light"></a>光源Light</h2><p><img src="https://huaka1-tuchuang.oss-cn-hangzhou.aliyuncs.com/202209121224034.png" srcset="/img/loading.gif" lazyload alt="image-20220912122425932"></p>
+<p>我们需要有一个环境光，使得我们能够看清物体，也需要有点光源，这样我们可以看清物体的一个轮廓或者棱角</p>
+<p>构造函数：</p>
+<ul>
+<li>第一个参数光照颜色，越白光显示越亮</li>
+<li>第二个参数表示光照强度</li>
+</ul>
+<p>环境光</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> ambientLight = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">AmbientLight</span>(<span class="hljs-number">0xffffff</span>,<span class="hljs-number">1</span>); <br>scene.<span class="hljs-title function_">add</span>(ambientLight);<br></code></pre></td></tr></table></figure>
+
+
+
+<p>点光源</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> pointLight = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">PointLight</span>(<span class="hljs-number">0xffffff</span>);<br>pointLight.<span class="hljs-property">position</span>.<span class="hljs-title function_">set</span>(<span class="hljs-number">200</span>,<span class="hljs-number">300</span>,<span class="hljs-number">400</span>);<br>scene.<span class="hljs-title function_">add</span>(pointLight);<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h1 id="相机"><a href="#相机" class="headerlink" title="相机"></a>相机</h1><h2 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h2><p>相机位置设置的越远，能看到的东西越多</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">camera.<span class="hljs-property">position</span>.<span class="hljs-title function_">set</span>(<span class="hljs-number">800</span>, <span class="hljs-number">800</span>, <span class="hljs-number">800</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="视野方向"><a href="#视野方向" class="headerlink" title="视野方向"></a>视野方向</h2><p>需要确定一个视野方向，才能看清事物</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">camera.<span class="hljs-title function_">lookAt</span>(scene.<span class="hljs-property">position</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+<p>视野方向会受到orbitcontrols的影响，只要一拉动滚轮，视野方向又会默认回到0.0.0</p>
+<p>添加以下代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">orbitControls.<span class="hljs-property">target</span>.<span class="hljs-title function_">set</span>(<span class="hljs-number">1000</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1000</span>);<br>orbitControls.<span class="hljs-title function_">update</span>();<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="投影方式"><a href="#投影方式" class="headerlink" title="投影方式"></a>投影方式</h2><h3 id="PerspectiveCamera"><a href="#PerspectiveCamera" class="headerlink" title="PerspectiveCamera"></a>PerspectiveCamera</h3><p>这个照相机最符合人眼的感觉	</p>
+<p>fov — 摄像机视锥体垂直视野角度<br>aspect — 摄像机视锥体长宽比<br>near — 摄像机视锥体近端面<br>far — 摄像机视锥体远端面</p>
+<img src="https://huaka1-tuchuang.oss-cn-hangzhou.aliyuncs.com/202209121841166.png" srcset="/img/loading.gif" lazyload alt="image-20220912184105305" style="zoom: 80%;" />
+
+
+
+<h1 id="渲染器"><a href="#渲染器" class="headerlink" title="渲染器"></a>渲染器</h1><h2 id="WebGLRenderer"><a href="#WebGLRenderer" class="headerlink" title="WebGLRenderer"></a>WebGLRenderer</h2><h3 id="修改背景颜色"><a href="#修改背景颜色" class="headerlink" title="修改背景颜色"></a>修改背景颜色</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">renderer.<span class="hljs-title function_">setClearColor</span>(<span class="hljs-number">0x084363</span>,<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+<h1 id="GLTF"><a href="#GLTF" class="headerlink" title="GLTF"></a>GLTF</h1><p>ee.js扩展库中提供了gltf模型的加载器<code>GLTFLoader.js</code>，查看目录<code>./threejs/examples/js/loaders/</code>可以找到文件<code>GLTFLoader.js</code>。</p>
+<p>three.js不同版本对应的gltf加载<code>GLTFLoader.js</code>可能会有差异，具体以你使用的three.js版本对应文档为准。</p>
+<h2 id="引入GLTFLoader"><a href="#引入GLTFLoader" class="headerlink" title="引入GLTFLoader"></a>引入GLTFLoader</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 课程案例源码中：引入gltf模型加载库GLTFLoader.js</span><br><span class="hljs-keyword">import</span> &#123;<span class="hljs-title class_">GLTFLoader</span>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../../three.js-r123/examples/jsm/loaders/GLTFLoader.js&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// npm安装工程化开发的时候引入方式</span><br><span class="hljs-keyword">import</span> &#123;<span class="hljs-title class_">GLTFLoader</span>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;three/examples/jsm/loaders/GLTFLoader.js&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="加载-gltf文件"><a href="#加载-gltf文件" class="headerlink" title="加载.gltf文件"></a>加载.gltf文件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 创建GLTF加载器对象</span><br><span class="hljs-keyword">var</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">GLTFLoader</span>();<br>loader.<span class="hljs-title function_">load</span>( <span class="hljs-string">&#x27;gltf模型.gltf&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"> gltf </span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;控制台查看gltf对象结构&#x27;</span>, gltf);<br>    <span class="hljs-comment">//gltf.scene可以包含网格模型Mesh、光源Light等信息，至于gltf.scene是否包含光源，要看.gltf文件中是否有光源信息</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;gltf对象场景属性&#x27;</span>, gltf.<span class="hljs-property">scene</span>);<br>  <span class="hljs-comment">// 返回的场景对象gltf.scene插入到threejs场景中</span><br>  scene.<span class="hljs-title function_">add</span>( gltf.<span class="hljs-property">scene</span> );<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li><p>load函数的第一个参数url，因为我们最开始目录是index.html，所以应该 <code>./src/components/three/scene/model.gltf</code></p>
+</li>
+<li><p>加载glb文件和gltf文件没有什么区别</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">loader.<span class="hljs-title function_">load</span>( <span class="hljs-string">&#x27;model.glb&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"> gltf </span>) &#123;<br><br>&#125; );<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>gltf格式模型<strong>可以包含</strong>平行光光源<code>DirectionalLight</code>、点光源<code>PointLight</code>、聚光源<code>SpotLight</code>。</p>
+</li>
+<li><p>gltf模型<strong>不能包含</strong>three.js中的环境光光源<code>AmbientLight</code>、半球光光源<code>HemisphereLight</code>、平面光光源<code>RectAreaLight</code>。</p>
+</li>
+</ul>
+<h2 id="纹理"><a href="#纹理" class="headerlink" title="纹理"></a>纹理</h2><p>纹理中包含的颜色信息（.map, .emissiveMap, 和 .specularMap）在glTF中总是使用sRGB颜色空间，而顶点颜色和材质属性（.color, .emissive, .specular） 则使用线性颜色空间。在典型的渲染工作流程中，纹理会被渲染器转换为线性颜色空间，进行光照计算，然后最终输出会被转换回 sRGB 颜色空间并显示在屏幕上。除非你需要使用线性颜色空间进行后期处理，否则请在使用glTF的时候将WebGLRenderer进行如下配置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">renderer.<span class="hljs-property">outputEncoding</span> = <span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">sRGBEncoding</span>;<br></code></pre></td></tr></table></figure>
+
+<p>假设渲染器的配置如上所示，则GLTFLoader将可以正确地自动配置从.gltf或.glb文件中引用的纹理。 当从外部加载纹理（例如，使用TextureLoader）并将纹理应用到glTF模型，则必须给定对应的颜色空间与朝向：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// If texture is used for color information, set colorspace. </span><br>texture.<span class="hljs-property">encoding</span> = <span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">sRGBEncoding</span>; <br><span class="hljs-comment">// UVs use the convention that (0, 0) corresponds to the upper left corner of a texture. </span><br>texture.<span class="hljs-property">flipY</span> = <span class="hljs-literal">false</span>;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="替换Mesh材质"><a href="#替换Mesh材质" class="headerlink" title="替换Mesh材质"></a>替换Mesh材质</h2><p>three.js场景对象scene或者说组对象group是一个树结构，通过方法<code>.traverse()</code>可以遍历整个树结构。</p>
+<p>通过浏览器控制台你可以看到，Three.js加载粮仓的GLTF格式的文件，网格模型Mesh对应默认材质是PBR材质<code>MeshStandardMaterial</code>,如果你的模型Mesh材质不是PBR材质，可通过通过代码修改材质类型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript">loader.<span class="hljs-title function_">load</span>(<span class="hljs-string">&quot;./scene/model.glb&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">gltf</span>) &#123;<br><br>  <span class="hljs-comment">// 递归遍历gltf.scene，批量更改所有Mesh的材质</span><br><br>  gltf.<span class="hljs-property">scene</span>.<span class="hljs-title function_">traverse</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">object</span>) &#123;<br><br>   <span class="hljs-keyword">if</span> (object.<span class="hljs-property">type</span> === <span class="hljs-string">&#x27;Mesh&#x27;</span>) &#123;<br><br>      <span class="hljs-comment">// console.log(object.material);//控制台查看mesh材质</span><br><br>      <span class="hljs-comment">// MeshLambertMaterial：受光照影响  MeshBasicMaterial：不受光照影响  </span><br><br>      object.<span class="hljs-property">material</span> = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">MeshLambertMaterial</span>(&#123;<br><br>        <span class="hljs-attr">map</span>: object.<span class="hljs-property">material</span>.<span class="hljs-property">map</span>, <span class="hljs-comment">//获取原来材质的颜色贴图属性值</span><br><br>        <span class="hljs-attr">color</span>: object.<span class="hljs-property">material</span>.<span class="hljs-property">color</span>, <span class="hljs-comment">//读取原来材质的颜色</span><br><br>      &#125;)<br><br>    &#125;<br><br>  &#125;)<br><br>  <span class="hljs-comment">//把gltf.scene中的所有模型添加到model组对象中</span><br><br>  model.<span class="hljs-title function_">add</span>(gltf.<span class="hljs-property">scene</span>);<br><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="雾化Fog"><a href="#雾化Fog" class="headerlink" title="雾化Fog"></a>雾化Fog</h2><p>通过three.js的API <a target="_blank" rel="noopener" href="http://www.webgl3d.cn/threejs/docs/#api/zh/scenes/Fog">Fog</a>可以模拟雾化效果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 设置雾化效果，雾的颜色和背景颜色相近，这样远处网格线和背景颜色融为一体</span><br>scene.<span class="hljs-property">fog</span> = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">Fog</span>(<span class="hljs-number">0x005577</span>, -<span class="hljs-number">100</span>, <span class="hljs-number">1000</span>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 渲染器设置three.js背景颜色 和雾化颜色相配   </span><br>renderer.<span class="hljs-title function_">setClearColor</span>(<span class="hljs-number">0x005577</span>, <span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="开发辅助"><a href="#开发辅助" class="headerlink" title="开发辅助"></a>开发辅助</h1><h2 id="orbitcontrols"><a href="#orbitcontrols" class="headerlink" title="orbitcontrols"></a>orbitcontrols</h2><p>实现滚轮放大缩小，移动旋转的功能</p>
+<p>Constructor</p>
+<p>OrbitControls( object : Camera, domElement : HTMLDOMElement )</p>
+<p>object: （必须）将要被控制的相机，通过调整相机的角度，相对的使得物体变了。</p>
+<p>domElement: 用于事件监听的HTML元素，只有在规定的html执行鼠标操作才能变换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> orbitControls = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">OrbitControls</span>(camera, render.<span class="hljs-property">domElement</span>);<br><br>orbitControls.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;change&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123; <span class="hljs-comment">//每次鼠标变化，就重新渲染图片</span><br>    render.<span class="hljs-title function_">render</span>(scene, camera);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h2><h3 id="AxesHelper"><a href="#AxesHelper" class="headerlink" title="AxesHelper"></a>AxesHelper</h3><p>用于简单模拟3个坐标轴的对象.<br>红色代表 X 轴. 绿色代表 Y 轴. 蓝色代表 Z 轴 (默认y轴是最上方的)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> axesHelper = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">AxesHelper</span>( <span class="hljs-number">5</span> ); <br>scene.<span class="hljs-title function_">add</span>( axesHelper );<br></code></pre></td></tr></table></figure>
+
+<img src="https://huaka1-tuchuang.oss-cn-hangzhou.aliyuncs.com/202209121451997.png" srcset="/img/loading.gif" lazyload alt="image-20220912145141760" style="zoom:67%;" />
+
+
+
+<p>​	</p>
+<h2 id="动画渲染循环"><a href="#动画渲染循环" class="headerlink" title="动画渲染循环"></a>动画渲染循环</h2><p>requestAnimationFrame()是window自带的api，会定期的自动调用传入的回调函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    renderer.<span class="hljs-title function_">render</span>(scene,camera);<span class="hljs-comment">//执行渲染操作</span><br>    mesh.<span class="hljs-title function_">rotateY</span>(<span class="hljs-number">0.01</span>);<span class="hljs-comment">//每次绕y轴旋转0.01弧度</span><br>    <span class="hljs-title function_">requestAnimationFrame</span>(render);<span class="hljs-comment">//请求再次执行渲染函数render</span><br>&#125;<br><span class="hljs-title function_">render</span>();<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="整合Vue"><a href="#整合Vue" class="headerlink" title="整合Vue"></a>整合Vue</h1><p>先将所有写的js代码放到一个js文件中，然后导出renderer</p>
+<p>在一个vue的template中添加div，然后在完成渲染的时候将renderer的元素放进去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div ref=&quot;three&quot;&gt;&lt;/div&gt; &lt;!--二--&gt;<br><br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123;renderer&#125; from &quot;./threejs/three_01&quot;; //一<br>export default &#123;<br>  name: &#x27;HelloWorld&#x27;,<br>  mounted() &#123;<br>    this.$refs.three.appendChild(renderer.domElement); //三<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/tags/three-js/">#three.js</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ThreeJS</div>
+      <div>http://example.com/2022/11/05/ThreeJS/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>huakai</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/05/uniapp/" title="uniapp">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">uniapp</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/05/Vue/" title="Vue">
+                        <span class="hidden-mobile">Vue</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
